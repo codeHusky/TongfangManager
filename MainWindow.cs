@@ -83,5 +83,9 @@ namespace ColorPicker
 
         }
 
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            Program.osdManager.ShowOSD(176);
+        }
     }
 }

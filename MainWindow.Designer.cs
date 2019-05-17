@@ -46,6 +46,7 @@ namespace ColorPicker
             this.button2 = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bVal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gVal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rVal)).BeginInit();
@@ -196,11 +197,22 @@ namespace ColorPicker
             this.label1.TabIndex = 19;
             this.label1.Text = "Brightness";
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(209, 168);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 20;
+            this.button3.Text = "gamer";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.Button3_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(495, 200);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.button2);
@@ -246,6 +258,7 @@ namespace ColorPicker
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button3;
     }
 }
 

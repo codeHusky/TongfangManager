@@ -22,6 +22,7 @@ namespace Utility
       {
         int int32 = Convert.ToInt32(e.NewEvent.SystemProperties["ULong"].Value.ToString());
         WMIEC.ScanCode_EventHander scanCodeEvent = WMIEC.ScanCodeEvent;
+        Log.s(LOG_LEVEL.TRACE, string.Format("WMIEC|event: " + scanCodeEvent.ToString()));
         if (scanCodeEvent != null)
           scanCodeEvent(int32);
         WMIEC.LM_ScanCode_EventHander lmScanCodeEvent = WMIEC.LMScanCodeEvent;
