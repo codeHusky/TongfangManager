@@ -133,6 +133,12 @@ namespace TongfangManager
             lm_manager.LM_Init(new RGBKB_Event_Handler(Event_LM));
             Console.WriteLine("!!! INIT DONE");
 
+            if (args.Contains("onlyset"))
+            {
+                SetKeyboardColor((byte)config.keyboard.red, (byte)config.keyboard.green, (byte)config.keyboard.blue);
+                return;
+            }
+
             
 
             
