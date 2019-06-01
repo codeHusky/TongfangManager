@@ -9,6 +9,10 @@ using System.Windows.Forms;
 using LightingModel;
 using OSDView;
 using Utility;
+using JsonFx.Json;
+using JsonFx.Serialization;
+using JsonFx.Serialization.Resolvers;
+using System.IO;
 
 namespace TongfangManager
 {
@@ -17,6 +21,8 @@ namespace TongfangManager
         public static LM_Manager lm_manager;
 
         public static OSDManager osdManager;
+
+        public static Config config;
 
         public static void SetKeyboardColor(byte red, byte green, byte blue)
         {
@@ -58,11 +64,62 @@ namespace TongfangManager
             else
                 return Color.FromArgb(255, v, p, q);
         }
+
+        public static void SaveDefaultConfig()
+        {
+            config = new Config();
+            config.keyboard = new Config.Keyboard();
+            config.keyboard.red = 255;
+            config.keyboard.green = 215;
+            config.keyboard.blue = 245;
+            config.keyboard.brightness = 4;
+            // = conf;
+            Console.WriteLine("!!! Loading Default Config...");
+            SaveConfig();
+        }
+
+        public static void LoadConfig()
+        {
+            if (!File.Exists("settings.conf"))
+            {
+                SaveDefaultConfig();
+            }
+            else
+            {
+                var reader = new JsonReader(new DataReaderSettings(new DataContractResolverStrategy()));
+                // use convention over configuration on the way out
+                var writer = new JsonWriter();//new DataWriterSettings(new ConventionResolverStrategy(ConventionResolverStrategy.WordCasing.Lowercase, "-")));
+
+
+                config = reader.Read<Config>(File.ReadAllText("settings.conf"));
+                Console.WriteLine("!!! Config Loaded");
+            }
+        }
+
+        public static void SaveConfig()
+        {
+            var reader = new JsonReader(new DataReaderSettings(new DataContractResolverStrategy()));
+            // use convention over configuration on the way out
+            var writer = new JsonWriter();//new DataWriterSettings(new ConventionResolverStrategy(ConventionResolverStrategy.WordCasing.Lowercase, "-")));
+            int red = Program.config.keyboard.red;//Config.User.keyboard.red;
+            int green = Program.config.keyboard.green;//Config.User.keyboard.green;
+            int blue = Program.config.keyboard.blue;//Config.User.keyboard.blue;
+            int brightness = Program.config.keyboard.brightness;//Config.User.keyboard.brightness;
+
+            Console.WriteLine(red + "," + green + "," + blue + " @ " + brightness);
+            string json = writer.Write(config);
+            File.WriteAllText("settings.conf", json);
+            Console.WriteLine("!!! Config Saved");
+        }
+
         [STAThread]
         static void Main(string[] args)
         {
 
             Log.setLogEnabled(true);
+            Console.WriteLine("!!! Loading Config...");
+            LoadConfig();
+
             lm_manager = new LM_Manager();
             
             osdManager = new OSDManager();
@@ -75,6 +132,8 @@ namespace TongfangManager
             Console.WriteLine("!!! INIT");
             lm_manager.LM_Init(new RGBKB_Event_Handler(Event_LM));
             Console.WriteLine("!!! INIT DONE");
+
+            
 
             
 

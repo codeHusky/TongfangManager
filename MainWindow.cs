@@ -73,7 +73,7 @@ namespace TongfangManager
 
         private void Button3_Click(object sender, EventArgs e)
         {
-            Program.osdManager.ScanCode_Handler(176);
+            //Program.osdManager.ScanCode_Handler(176);
         }
 
         private void Button1_Click_1(object sender, EventArgs e)
