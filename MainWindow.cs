@@ -6,68 +6,52 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using ConsoleApp1;
+using Microsoft.CSharp.RuntimeBinder;
 
-namespace ColorPicker
+
+namespace TongfangManager
 {
     public partial class MainWindow : Form
     {
+        private Boolean ignoreUpdate = false;
+        
         public MainWindow()
         {
             InitializeComponent();
+
+
+            int red = Program.config.keyboard.red;//Config.User.keyboard.red;
+            int green = Program.config.keyboard.green;//Config.User.keyboard.green;
+            int blue = Program.config.keyboard.blue;//Config.User.keyboard.blue;
+            int brightness = Program.config.keyboard.brightness;//Config.User.keyboard.brightness;
+
+            Console.WriteLine(red+","+green+","+blue+" @ " + brightness);
+
+            setRGB(red, green, blue);
         }
 
-        private void Open_Click(object sender, EventArgs e)
+
+        private void setRGB(int red, int green, int blue)
         {
-            //openFileDialog1.ShowDialog();
+            ignoreUpdate = true;
+            rVal.Value = red;
+            gVal.Value = green;
+            bVal.Value = blue;
+            ignoreUpdate = false;
+            rgbValChanged(null, null);
+            /*Color c = Color.FromArgb(rVal.Value, gVal.Value, bVal.Value);
+            pictureBox2.BackColor = c;
+
+            this.redValue.Text = c.R.ToString();
+            this.greenValue.Text = c.G.ToString();
+            this.blueValue.Text = c.B.ToString();
+
+            Program.SetKeyboardColor(c.R, c.G, c.B);*/
         }
-
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-            //pictureBox1.ImageLocation = openFileDialog1.FileName;
-        }
-
-        /*private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
-        {
-            try
-            {
-                Bitmap bmp = new Bitmap(pictureBox1.Image);
-                Color c = bmp.GetPixel(e.X, e.Y);
-                pictureBox2.BackColor = c;
-
-                //aVal.Text = c.A.ToString();
-                rVal.Value = c.R;//.ToString();
-                gVal.Value = c.G;//.ToString();
-                bVal.Value = c.B;//.ToString();
-
-            }
-            catch(Exception ex) {
-
-            }
-        }
-
-        private void pictureBox2_MouseClick(object sender, MouseEventArgs e)
-        {
-            try
-            {
-                Bitmap bmp = new Bitmap(pictureBox1.Image);
-                Color c = bmp.GetPixel(e.X, e.Y);
-                pictureBox2.BackColor = c;
-
-                //aVal.Text = c.A.ToString();
-                rVal.Value = c.R;//.ToString();
-                gVal.Value = c.G;//.ToString();
-                bVal.Value = c.B;//.ToString();
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }*/
 
         private void rgbValChanged(object sender, System.EventArgs e)
         {
+            if (ignoreUpdate) return;
             Color c = Color.FromArgb(rVal.Value,gVal.Value,bVal.Value);
             pictureBox2.BackColor = c;
 
@@ -76,6 +60,10 @@ namespace ColorPicker
             this.blueValue.Text = c.B.ToString();
 
             Program.SetKeyboardColor(c.R,c.G,c.B);
+            Program.config.keyboard.red = rVal.Value;
+            Program.config.keyboard.green = gVal.Value;
+            Program.config.keyboard.blue = bVal.Value;
+            //Program.Red = rVal.Value;
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -85,7 +73,12 @@ namespace ColorPicker
 
         private void Button3_Click(object sender, EventArgs e)
         {
-            Program.osdManager.ShowOSD(176);
+            Program.osdManager.ScanCode_Handler(176);
+        }
+
+        private void Button1_Click_1(object sender, EventArgs e)
+        {
+            Program.SaveConfig();
         }
     }
 }

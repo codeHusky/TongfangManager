@@ -6,12 +6,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
-using ColorPicker;
 using LightingModel;
 using OSDView;
 using Utility;
 
-namespace ConsoleApp1
+namespace TongfangManager
 {
     class Program
     {

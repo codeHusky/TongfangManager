@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ColorPicker
+namespace TongfangManager
 {
     partial class MainWindow
     {
@@ -168,6 +168,7 @@ namespace ColorPicker
             this.button1.TabIndex = 16;
             this.button1.Text = "Save Profile";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click_1);
             // 
             // button2
             // 
@@ -231,7 +232,7 @@ namespace ColorPicker
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
-            this.Text = "Tongfang RGB Keyboard";
+            this.Text = "Tongfang Manager";
             ((System.ComponentModel.ISupportInitialize)(this.bVal)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gVal)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rVal)).EndInit();
